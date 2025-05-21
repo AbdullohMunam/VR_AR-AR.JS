@@ -1,63 +1,51 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <meta charset="utf-8">
-    <title>AR Car Display with Single Marker</title>
-    <script src="aframe.min.js"></script>
-    <script src="aframe-ar.min.js"></script>
-    <style>
-        .arjs-loader {
-            height: 100%;
-            width: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-        }
-    </style>
-</head>
-<body style="margin: 0; overflow: hidden;">
-    <div class="arjs-loader">
-        <div>Loading, please wait...</div>
-    </div>
+    <title>Abdulloh Mun'am Praktikum AR.js</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="js/aframe.min.js"></script>
+    <script src="js/aframe-ar.js"></script>
+  </head>
+  <body style="margin: 0; overflow: hidden;">
+    <!-- Scene AR ini mengatur:
+         - 'embedded': menyesuaikan dengan halaman web
+         - 'arjs': menggunakan kamera dan menyembunyikan UI debug -->
+    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+      <!-- Hiro marker menggunakan tag a-marker dengan atribut preset="hiro" yang di dalamnya ada 2 entity berformat 3d model -->
+      <a-marker preset="hiro">
+        <!-- Batman model 
+          - position: menempatkan model di posisi x, y, z
+          - scale: menyesuaikan ukuran model
+          - gltf-model: memuat model 3D
+          - rotation: mengatur rotasi model
+          - animation: mengatur animasi model 
+        -->
+        <a-entity
+          position="-1 0 0"
+          scale="1 1 1"
+          gltf-model="models/Camaro_f_ZL1_2017.glb"
+          rotation="0 90 0"
+          animation="property: rotation; to: 0 90 0; dur: 5000; easing: linear; loop: true">
+        </a-entity>
+        
+        <!-- Joker model 
+          - position: menempatkan model di posisi x, y, z
+          - scale: menyesuaikan ukuran model
+          - gltf-model: memuat model 3D
+          - rotation: mengatur rotasi model
+          - animation: mengatur animasi model 
+        -->
+        <a-entity
+          position="1 0 0"
+          scale="0.3 0.3 0.3"
+          gltf-model="models/Police_Car.glb"
+          rotation="0 -90 0"
+          animation="property: rotation; to: 0 -90 0; dur: 5000; easing: linear; loop: true">
+        </a-entity>
+      </a-marker>
 
-    <a-scene 
-        vr-mode-ui="enabled: false"
-        embedded 
-        arjs="sourceType: webcam; debugUIEnabled: false;"
-        renderer="logarithmicDepthBuffer: true;"
-    >
-        <!-- Single Hiro marker with both models -->
-        <a-marker preset="hiro">
-            <!-- Regular Car - positioned to the left -->
-            <a-entity 
-                position="-0.5 0 0" 
-                scale="0.05 0.05 0.05"
-                gltf-model="model/CAR Model.glb"
-                animation="property: rotation; to: 0 360 0; loop: true; dur: 10000">
-            </a-entity>
-            
-            <!-- Police Car - positioned to the right -->
-            <a-entity 
-                position="0.5 0 0" 
-                scale="0.05 0.05 0.05"
-                gltf-model="model/Police Car.glb"
-                animation="property: rotation; to: 0 360 0; loop: true; dur: 10000">
-            </a-entity>
-        </a-marker>
-
-        <a-entity camera></a-entity>
+      <a-entity camera></a-entity>
     </a-scene>
-
-    <script>
-        window.addEventListener('arjs-nft-loaded', function() {
-            document.querySelector('.arjs-loader').style.display = 'none';
-        });
-    </script>
-</body>
+  </body>
 </html>
